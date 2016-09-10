@@ -17,10 +17,14 @@ export default Component.extend({
   classNames: ['input'],
   classNameBindings: ['themeClass'],
 
-  themeClass: computed('theme', function() {
-    let { theme } = this.getProperties('theme');
+  themeClass: computed('theme', 'value', function() {
+    let { theme, value } = this.getProperties('theme', 'value');
     if (isBlank(theme)) theme = 'hoshi';
-    return `input--${theme}`;
+
+    if (isBlank(value))
+      return `input--${theme}`;
+    else
+      return `input--${theme} input--filled`;
   }),
 
   inputFieldClass: computed('theme', function() {
@@ -39,5 +43,7 @@ export default Component.extend({
     let { theme } = this.getProperties('theme');
     if (isBlank(theme)) theme = 'hoshi';
     return `input__label-content input__label-content--${theme}`;
-  })
+  }),
+
+
 });
